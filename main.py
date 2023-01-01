@@ -11,7 +11,11 @@ app = StellaAPI()
 async def get_generated_banner() -> StreamingResponse:
     banner = await app.generate_banner()
     image_stream = io.BytesIO(banner)
-    return StreamingResponse(content=image_stream, media_type="image/png")
+    return StreamingResponse(
+        content=image_stream,
+        media_type="image/png",
+        headers={"Cache-Control": "no-cache"}
+    )
 
 
 @app.get('/github/default', response_class=FileResponse)

@@ -63,8 +63,8 @@ class StellaGithub:
         for repo in self.repositories.values():
             try:
                 commit, extra = await self.find_latest_commit(repo)
-            except Exception as e:
-                traceback.print_tb(e)
+            except Exception:
+                traceback.print_exc()
             else:
                 commits.append(RepoCommit(commit, extra, repo))
 
