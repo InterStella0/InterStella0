@@ -29,7 +29,7 @@ class CommitAwareImage:
     font_name: str = 'ARLRDBD.TTF'
     padding: int = 5
 
-    def __init__(self, repo_commit: RepoCommit):
+    def __init__(self, repo_commit: RepoCommit) -> None:
         self.filename: str = 'commit-aware.png'
         self.font: Optional[FreeTypeFont] = None
         self.font_dir: str = ""
@@ -73,7 +73,7 @@ class CommitAwareImage:
     def get_time_position(self) -> Position:
         return Position(x=527, y=96, width=66, height=21)
 
-    def set_text_multiline(self, pos: Position, message: str):
+    def set_text_multiline(self, pos: Position, message: str) -> None:
         lines = textwrap.wrap(message, width=15)
         y_text = pos.y
         for i, line in enumerate(lines):
@@ -85,11 +85,11 @@ class CommitAwareImage:
             if i == 1:
                 break
 
-    def set_message(self, message: str):
+    def set_message(self, message: str) -> None:
         pos = self.get_message_position()
         self.set_text_multiline(pos, message)
 
-    def set_time(self, date: datetime.datetime):
+    def set_time(self, date: datetime.datetime) -> None:
         pos = self.get_time_position()
         delta = humanize.naturaldelta(datetime.datetime.utcnow() - date)
         self.resize_fit(pos, delta)
@@ -119,11 +119,11 @@ class CommitAwareImage:
 class ImageHandler:
     directory: str = 'assets'
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.github: Optional[StellaGithub] = None
         self.cached_image: Optional[bytes] = None
 
-    async def cleanup(self):
+    async def cleanup(self) -> None:
         if self.github:
             await self.github.cleanup()
 
@@ -132,14 +132,14 @@ class ImageHandler:
         image = CommitAwareImage.load(self.directory, value)
         return await image.generate_image(self.directory)
 
-    async def generate_banner(self):
+    async def generate_banner(self) -> bytes:
         if not self.github.has_update():
             return self.cached_image
 
         self.cached_image = _bytes = await self._generate_banner()
         return _bytes
 
-    async def acquire_github(self):
+    async def acquire_github(self) -> None:
         if not self.github:
             github = await StellaGithub.init()
             self.github = github

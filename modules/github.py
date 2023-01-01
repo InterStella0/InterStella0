@@ -16,14 +16,14 @@ from modules.errors import CommitMissing
 class StellaGithub:
     update: datetime.timedelta = datetime.timedelta(minutes=10)
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.github_client: Optional[GitHub] = None
         self.repositories: dict[int, Repo] = {}
         self.author: Optional[User] = None
         self._last_update: Optional[datetime.datetime] = None
 
     @classmethod
-    async def init(cls):
+    async def init(cls) -> StellaGithub:
         github = cls()
         await github.initiate_github()
         return github
@@ -36,11 +36,11 @@ class StellaGithub:
         self._last_update = now
         return True
 
-    async def cleanup(self):
+    async def cleanup(self) -> None:
         if self.github_client:
             await self.github_client.close()
 
-    async def initiate_github(self):
+    async def initiate_github(self) -> None:
         async with aiofiles.open('config.json') as r:
             config = json.loads(await r.read())
             self.github_client = client = GitHub(config['github_token'])
@@ -82,7 +82,7 @@ class CommitCommitter:
     message: str
 
     @classmethod
-    def from_dict(cls, values: Dict[str, str]):
+    def from_dict(cls, values: Dict[str, str]) -> CommitCommitter:
         author = values['author']
         date = datetime.datetime.strptime(author['date'], "%Y-%m-%dT%H:%M:%SZ")
         return cls(author['name'], author['email'], date, values['message'])

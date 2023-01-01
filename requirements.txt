@@ -1,0 +1,6 @@
+humanize
+fastapi
+uvicorn[standard]
+pillow
+aiofiles
+git+https://github.com/reupen/aiogithub.git#egg=aiogithub
