@@ -6,5 +6,5 @@ I'll try to make new things when i have time
 Email: contact@queeniemella.cc
 
 # Open Source Activities
-| ![stella_stat](https://github-readme-stats.vercel.app/api?username=interstella0&show_icons=true&theme=jolly) | ![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=interstella0&theme=jolly)    |
+| ![stella_stat](https://github-readme-stats-fast.vercel.app/api?username=interstella0&show_icons=true&theme=jolly) | ![Top Langs](https://github-readme-stats-fast.vercel.app/api/top-langs/?username=interstella0&theme=jolly)    |
 | -------  | ------- |
